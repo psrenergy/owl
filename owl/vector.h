@@ -26,6 +26,13 @@ namespace owl::vector {
     template <typename type> inline bool has(std::vector<type>& v, type item) {
         return std::find(v.begin(), v.end(), item) != v.end();
     }
+
+    template <typename type> inline bool has(std::vector<type>& v, std::unordered_set<type>& items) {
+        for (auto& item : items) {
+            if (owl::vector::has(v, item)) return true;
+        }
+        return false;
+    }
 }
 
 #endif
