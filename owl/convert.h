@@ -17,6 +17,10 @@ namespace owl::convert {
     inline double degree_to_radian(double value) {
         return (value * owl::constant::pi) / 180;
     }
+
+    inline double percent_to_pu(double value) {
+        return value / 100;
+    }
 }
 
 #endif
