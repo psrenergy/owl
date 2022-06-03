@@ -14,11 +14,16 @@
 #include <random>
 #include <codecvt>
 #include <locale>
+#include <optional>
 
 namespace std {
     inline std::string to_string(std::string s) {
         return s;
     }
+
+    inline std::string to_string(std::optional<double> d) {
+        return d.has_value() ? std::to_string(d.value()) : "";
+    }  
 }
 
 namespace owl::string {
