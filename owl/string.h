@@ -84,14 +84,18 @@ namespace owl::string {
         return tokens;
     }
 
-    inline std::vector<std::string> split(const std::string& s, const std::string& delimiter = ",") {
-        std::vector<std::string> tokens;
+    inline std::vector<std::string> split(const std::string& s, const std::string& delimiter = ",", bool keep_delimiter = false) {
         std::size_t start = s.find_first_not_of(delimiter);
         std::size_t end = 0;
+
+        std::vector<std::string> tokens;
+        if (keep_delimiter && start > 0) tokens.push_back(delimiter);
 
         while ((end = s.find_first_of(delimiter, start)) != std::string::npos) {
             tokens.push_back(s.substr(start, end - start));
             start = s.find_first_not_of(delimiter, end);
+
+            if (keep_delimiter) tokens.push_back(delimiter);
         }
 
         if (start != std::string::npos) {
