@@ -61,13 +61,16 @@ namespace owl::string {
         return copy;
     }
 
-    inline std::string trim(std::string s) {
-        s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) { return !std::isspace(ch); }));
-        s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) { return !std::isspace(ch); }).base(), s.end());
-        return s;
+    inline std::string trim(const std::string& s) {
+        const auto begin = s.find_first_not_of(' ');
+        if (begin == std::string::npos)
+            return "";
+
+        const auto end = s.find_last_not_of(' ');
+        return s.substr(begin, end - begin + 1);
     }
 
-    inline bool has_ending(std::string const& s, std::string const& ending) {
+    inline bool has_ending(const std::string& s, std::string const& ending) {
         if (s.length() >= ending.length()) {
             return (0 == s.compare(s.length() - ending.length(), ending.length(), ending));
         } else {
@@ -81,6 +84,21 @@ namespace owl::string {
 
         std::istringstream stream(s);
         while (std::getline(stream, token, delimiter)) { tokens.push_back(token); }
+        return tokens;
+    }
+
+    inline std::vector<std::string> split_and_trim(std::string_view in, const char delimiter = ',') {
+        std::vector<std::string> tokens;
+        tokens.reserve(std::count(in.begin(), in.end(), delimiter) + 1);
+        for (auto p = in.begin();; ++p) {
+            if (*p != ' ') {
+                auto q = p;
+                p = std::find(p, in.end(), delimiter);
+                tokens.emplace_back(q, p);
+                if (p == in.end())
+                    return tokens;
+            }
+        }
         return tokens;
     }
 
