@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #ifndef OWL_STRING_H
 #define OWL_STRING_H
