@@ -208,8 +208,16 @@ namespace owl::math {
         return v.size() == 0 ? 0 : *std::min_element(std::begin(v), std::end(v));
     }
 
+    inline int minimum_element(std::vector<double>& v) {
+        return v.size() == 0 ? 0 : std::min_element(v.begin(), v.end()) - v.begin();
+    }
+
     inline double maximum(std::vector<double>& v) {
         return v.size() == 0 ? 0 : *std::max_element(std::begin(v), std::end(v));
+    }
+
+    inline int maximum_element(std::vector<double>& v) {
+        return v.size() == 0 ? 0 : std::max_element(v.begin(), v.end()) - v.begin();
     }
 }
 
