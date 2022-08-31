@@ -85,68 +85,6 @@ namespace owl::math {
         return pairs;
     }
 
-    inline int nth_element(std::vector<double>& v, double alpha) {
-        auto size = v.size();
-        if (size == 1) { return 0; }
-
-        auto pairs = owl::math::vector_with_indices(v);
-        auto shift = (std::min)((std::size_t)std::floor((alpha * size) / 100), size - 1);
-
-        auto nth = pairs.begin() + shift;
-        std::nth_element(pairs.begin(), nth, pairs.end());
-        return (*nth).second;
-    }
-
-    inline double quantile(std::vector<double>& v, double alpha) {
-        if (v.size() == 0) return 0;
-
-        auto nth = owl::math::nth_element(v, alpha);
-        return v[nth];
-    }
-
-    inline double cvar(std::vector<double>& v, double alpha, bool left = true) {
-        auto size = v.size();
-
-        auto pairs = owl::math::vector_with_indices(v);
-        auto shift = (std::max)((std::size_t)std::ceil((alpha * size) / 100), (std::size_t)1);
-
-        if (left) {
-            std::sort(std::begin(pairs), std::end(pairs));
-        } else {
-            std::sort(std::begin(pairs), std::end(pairs), std::greater<std::pair<double, int>>());
-        }
-
-        double sum = 0;
-        for (std::size_t i = 0; i < shift; ++i) {
-            sum += pairs[i].first;
-        }
-        return sum / shift;
-    }
-
-    inline double cvar_left(std::vector<double>& v, double alpha) {
-        return cvar(v, alpha, true);
-    }
-
-    inline double cvar_right(std::vector<double>& v, double alpha) {
-        return cvar(v, alpha, false);
-    }
-
-    inline double stddev(std::vector<double>& v) {
-        auto size = v.size();
-        if (size == 1) {
-            return 0;
-        }
-
-        double sum = std::accumulate(v.begin(), v.end(), 0.0);
-        double mean = sum / size;
-
-        std::vector<double> difference(v.size());
-        std::transform(v.begin(), v.end(), difference.begin(), [mean](double x) { return x - mean; });
-
-        double square_sum = std::inner_product(difference.begin(), difference.end(), difference.begin(), 0.0);
-        return std::sqrt(square_sum / (size - 1));
-    }
-
     inline double round(double v, int digits) {
         return std::floor((v * std::pow(10.0, digits)) + .5) / std::pow(10.0, digits);
     }
@@ -182,42 +120,6 @@ namespace owl::math {
         }
 
         return std::make_pair(lb_index, ub_index);
-    }
-
-    inline double npv(std::vector<double>& v, double rate) {
-        double sum = 0;
-        for (std::size_t i = 0, size = v.size(); i < size; ++i) { sum += v[i] / std::pow(1.0 + rate, i + 1); }
-        return sum;
-    }
-
-    inline double average(std::vector<double>& v) {
-        auto size = v.size();
-        return size == 0 ? 0 : (std::accumulate(std::begin(v), std::end(v), 0.0) / size);
-    }
-
-    inline double multiply(std::vector<double>& v) {
-        auto size = v.size();
-        return size == 0 ? 0 : std::accumulate(std::begin(v), std::end(v), 1.0, std::multiplies<double>());
-    }
-
-    inline double sum(std::vector<double>& v) {
-        return v.size() == 0 ? 0 : std::accumulate(std::begin(v), std::end(v), 0.0);
-    }
-
-    inline double minimum(std::vector<double>& v) {
-        return v.size() == 0 ? 0 : *std::min_element(std::begin(v), std::end(v));
-    }
-
-    inline int minimum_element(std::vector<double>& v) {
-        return v.size() == 0 ? 0 : std::min_element(v.begin(), v.end()) - v.begin();
-    }
-
-    inline double maximum(std::vector<double>& v) {
-        return v.size() == 0 ? 0 : *std::max_element(std::begin(v), std::end(v));
-    }
-
-    inline int maximum_element(std::vector<double>& v) {
-        return v.size() == 0 ? 0 : std::max_element(v.begin(), v.end()) - v.begin();
     }
 }
 
