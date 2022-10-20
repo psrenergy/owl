@@ -61,6 +61,10 @@ namespace owl::math {
         return static_cast<int>(std::floor(v));
     }
 
+    inline int ceil(double v) {
+        return static_cast<int>(std::ceil(v));
+    }
+
     inline bool approximately_equal(double a, double b, double rtol = 1e-4, double atol = 0) {
         //return std::abs(a - b) <= (epsilon * std::max(std::abs(a), std::abs(b)));
         return a == b || (std::isfinite(a) && std::isfinite(b) && std::abs(a - b) <= std::max(atol, rtol * std::max(std::abs(a), std::abs(b))));
