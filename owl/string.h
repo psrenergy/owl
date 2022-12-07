@@ -132,23 +132,23 @@ namespace owl::string {
     }
 
     template <typename T> inline std::string join(std::unordered_set<T> v, std::string delimiter = ", ") {
-        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, const std::unordered_set<T>::value_type &p) { return ss.empty() ? std::to_string(p) : ss + delimiter + std::to_string(p); });
+        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, typename std::unordered_set<T>::value_type &p) { return ss.empty() ? std::to_string(p) : ss + delimiter + std::to_string(p); });
     }
 
     template <typename T> inline std::string join(std::vector<T> v, std::string delimiter = ", ") {
-        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, const std::vector<T>::value_type &p) { return ss.empty() ? std::to_string(p) : ss + delimiter + std::to_string(p); });
+        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, typename std::vector<T>::value_type &p) { return ss.empty() ? std::to_string(p) : ss + delimiter + std::to_string(p); });
     }
 
     template <typename T, typename U> inline std::string join(std::unordered_map<T, U> v, std::string delimiter = ", ") {
-        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, const std::unordered_map<T, U>::value_type& p) { return ss.empty() ? std::to_string(p.first) : ss + delimiter + std::to_string(p.first); });
+        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, typename std::unordered_map<T, U>::value_type& p) { return ss.empty() ? std::to_string(p.first) : ss + delimiter + std::to_string(p.first); });
     }
 
     template <typename T> inline std::string join_with_precision(std::vector<T> v, std::string delimiter = ", ") {
-        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, const std::vector<T>::value_type& p) { return ss.empty() ? owl::string::to_string_with_precision(p) : ss + delimiter + owl::string::to_string_with_precision(p); });
+        return std::accumulate(std::begin(v), std::end(v), std::string(), [delimiter](std::string& ss, typename std::vector<T>::value_type& p) { return ss.empty() ? owl::string::to_string_with_precision(p) : ss + delimiter + owl::string::to_string_with_precision(p); });
     }
     
     template <typename T> inline std::string join_with_prefix(std::vector<T> v, std::string prefix, std::string delimiter = ", ") {
-        return std::accumulate(std::begin(v), std::end(v), std::string(), [prefix, delimiter](std::string& ss, const std::vector<T>::value_type& p) { return ss.empty() ? (prefix + std::to_string(p)) : ss + delimiter + prefix + std::to_string(p); });
+        return std::accumulate(std::begin(v), std::end(v), std::string(), [prefix, delimiter](std::string& ss, typename std::vector<T>::value_type& p) { return ss.empty() ? (prefix + std::to_string(p)) : ss + delimiter + prefix + std::to_string(p); });
     }
 
     inline std::string ansi_to_utf8(const std::string& s) {
