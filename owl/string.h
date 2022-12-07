@@ -15,6 +15,7 @@
 #include <codecvt>
 #include <locale>
 #include <optional>
+#include <unordered_map>
 
 namespace std {
     inline std::string to_string(std::string s) {
