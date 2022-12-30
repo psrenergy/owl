@@ -3,9 +3,9 @@
 #ifndef OWL_CONVERT_H
 #define OWL_CONVERT_H
 
-#include <owl/constant.h>
-
 namespace owl::convert {
+    inline constexpr double pi = 3.14159265358979323846;
+
     inline double mw_to_pu(double value) {
         return value / 100.0;
     }
@@ -15,7 +15,7 @@ namespace owl::convert {
     }
 
     inline double degree_to_radian(double value) {
-        return (value * owl::constant::pi) / 180;
+        return (value * pi) / 180;
     }
 
     inline double percent_to_pu(double value) {
